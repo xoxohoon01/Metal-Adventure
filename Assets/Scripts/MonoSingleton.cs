@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
@@ -11,15 +12,14 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (_instance == null)
             {
-                T newUIManager = new GameObject().AddComponent<T>();
-                _instance = newUIManager;
+                GameObject newManager = new GameObject(typeof(T).Name);
+                _instance = newManager.AddComponent<T>();
             }
             return _instance;
         }
-        set { _instance = value; }
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         if (_instance == null)
         {
@@ -31,5 +31,4 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

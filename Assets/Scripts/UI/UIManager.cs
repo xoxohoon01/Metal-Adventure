@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,19 +11,24 @@ public class UIManager : MonoSingleton<UIManager>
 
     public Action updateUI;
 
-    public Condition HP;
-    public Condition MP;
-    public Condition EXP;
+    public Character currentCharacter;
 
     public void UpdateCondition()
     {
-        uiCondition.HP.fillAmount = HP.GetValue() / HP.curValue;
-        uiCondition.MP.fillAmount = MP.GetValue() / MP.curValue;
-        uiCondition.EXP.fillAmount = EXP.GetValue() / EXP.curValue;
+        if (currentCharacter != null)
+        {
+            uiCondition.HP.fillAmount = currentCharacter.HP.curValue / currentCharacter.HP.GetValue();
+            uiCondition.MP.fillAmount = currentCharacter.MP.curValue / currentCharacter.MP.GetValue();
+            uiCondition.EXP.fillAmount = currentCharacter.EXP.curValue / currentCharacter.EXP.GetValue();
+        }
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         updateUI += UpdateCondition;
+    }
+    private void Update()
+    {
+        UpdateCondition();
     }
 }

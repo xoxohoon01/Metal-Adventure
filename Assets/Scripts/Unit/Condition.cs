@@ -4,15 +4,21 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[System.Serializable]
 public class Condition
 {
-    public float curValue;
-    public float originValue;
+    public float curValue = 0;
+    public float originValue = 0;
 
-    public List<float> addition;
-    public List<float> multiplication;
-    public List<float> subtraction;
+    public List<float> addition = new List<float>();
+    public List<float> multiplication = new List<float>();
+    public List<float> subtraction = new List<float>();
 
+    public void Init(float value)
+    {
+        originValue = value;
+        curValue = value;
+    }
     public void Add(float value)
     {
         curValue += value;
