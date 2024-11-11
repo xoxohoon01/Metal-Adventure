@@ -20,7 +20,5 @@ public class Character : Unit
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            UIManager.Instance.updateUI.Invoke();
     }
 }

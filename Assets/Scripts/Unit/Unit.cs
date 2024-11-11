@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class Unit : MonoBehaviour, IDamageable
     public Condition Range = new Condition();
     public Condition MoveSpeed = new Condition();
     public Condition AttackSpeed = new Condition();
+
+    public Action OnChangedCondition;
 
     public void TakeDamage(float damage)
     {

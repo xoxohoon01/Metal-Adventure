@@ -22,13 +22,4 @@ public class UIManager : MonoSingleton<UIManager>
             uiCondition.EXP.fillAmount = currentCharacter.EXP.curValue / currentCharacter.EXP.GetValue();
         }
     }
-
-    private void Awake()
-    {
-        updateUI += UpdateCondition;
-    }
-    private void Update()
-    {
-        UpdateCondition();
-    }
 }
