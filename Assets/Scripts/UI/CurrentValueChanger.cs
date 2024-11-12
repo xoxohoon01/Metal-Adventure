@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CurrentValueChanger : MonoBehaviour
 {
-    public Character currentCharacter;
+    public Player currentCharacter;
 
     private GameObject HP;
     private GameObject MP;

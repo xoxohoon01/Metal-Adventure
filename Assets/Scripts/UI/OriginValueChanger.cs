@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class OriginValueChanger : MonoBehaviour
 {
-    public Character currentCharacter;
+    public Player currentCharacter;
 
     private GameObject HP;
     private GameObject MP;

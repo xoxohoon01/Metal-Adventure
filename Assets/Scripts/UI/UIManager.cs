@@ -11,15 +11,15 @@ public class UIManager : MonoSingleton<UIManager>
 
     public Action updateUI;
 
-    public Character currentCharacter;
+    public Player currentPlayer;
 
     public void UpdateCondition()
     {
-        if (currentCharacter != null)
+        if (currentPlayer != null)
         {
-            uiCondition.HP.fillAmount = currentCharacter.HP.curValue / currentCharacter.HP.GetValue();
-            uiCondition.MP.fillAmount = currentCharacter.MP.curValue / currentCharacter.MP.GetValue();
-            uiCondition.EXP.fillAmount = currentCharacter.EXP.curValue / currentCharacter.EXP.GetValue();
+            uiCondition.HP.fillAmount = currentPlayer.HP.curValue / currentPlayer.HP.GetValue();
+            uiCondition.MP.fillAmount = currentPlayer.MP.curValue / currentPlayer.MP.GetValue();
+            uiCondition.EXP.fillAmount = currentPlayer.EXP.curValue / currentPlayer.EXP.GetValue();
         }
     }
 }
