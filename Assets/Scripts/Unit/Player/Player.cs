@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Unit
 {
-    public PlayerController controller;
+    public PlayerController controller { get; private set; }
 
     public Condition EXP = new Condition();
 
@@ -19,10 +19,12 @@ public class Player : Unit
     private void Start()
     {
         UIManager.Instance.currentPlayer = this;
+        Instantiate(characterType.prefab, transform);
     }
 
     private void Update()
     {
+        UpdateBuff();
     }
 
     private void OnDrawGizmos()

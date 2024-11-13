@@ -46,9 +46,9 @@ public class Condition
         }
     }
 
-    public List<float> addition = new List<float>();
-    public List<float> multiplication = new List<float>();
-    public List<float> subtraction = new List<float>();
+    public List<Buff> addition = new List<Buff>();
+    public List<Buff> multiplication = new List<Buff>();
+    public List<Buff> subtraction = new List<Buff>();
 
     public Action OnCurValueChanged;
     public Action OnOriginValueChanged;
@@ -61,6 +61,7 @@ public class Condition
     public void Add(float value)
     {
         curValue += value;
+        curValue = Mathf.Clamp(curValue, 0, GetValue());
     }
     public void Subtract(float value)
     {
@@ -70,22 +71,51 @@ public class Condition
     {
         float finalValue = originValue;
 
-        if (multiplication.Count > 0) finalValue *= 1 + multiplication.Sum();
+        if (multiplication.Count > 0)
+        {
+            float value = 0;
+            foreach(Buff buff in multiplication)
+            {
+                value += buff.buffValue;
+            }
+            finalValue *= 1 + value;
+        }
         if (addition.Count > 0)
         {
             for (int i = 0; i < addition.Count; i++)
             {
-                finalValue += addition[i];
+                finalValue += addition[i].buffValue;
             }
         }
         if (subtraction.Count > 0)
         {
             for (int i = 0; i < addition.Count; i++)
             {
-                finalValue -= addition[i];
+                finalValue -= addition[i].buffValue;
             }
         }
 
         return Mathf.Max(0, finalValue);
+    }
+
+    public void AddBuffAddition(Buff newBuff, bool isChangeCurValue = false)
+    {
+        addition.Add(newBuff);
+        curValue = isChangeCurValue ? GetValue() : curValue;
+    }
+    public void AddBuffMultiplication(Buff newBuff, bool isChangeCurValue = false)
+    {
+        multiplication.Add(newBuff);
+        curValue = isChangeCurValue ? GetValue() : curValue;
+    }
+    public void AddBuffSubtraction(Buff newBuff, bool isChangeCurValue = false)
+    {
+        subtraction.Add(newBuff);
+        curValue = isChangeCurValue ? GetValue() : curValue;
+    }
+
+    public void UpdateValue()
+    {
+        curValue = GetValue();
     }
 }

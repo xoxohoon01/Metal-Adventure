@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
-[RequireComponent(typeof(Player))]
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(Enemy))]
+public class EnemyController : MonoBehaviour
 {
-    public Player player { get; private set; }
+    public Enemy enemy { get; private set; }
     public Rigidbody rb { get; private set; }
     public GameObject target { get; private set; }
 
-    IPlayerState currentState;
+    IEnemyState currentState;
 
     private bool canAttack = true;
     IEnumerator Attack(float time)
     {
         canAttack = false;
-        target.GetComponent<Unit>().TakeDamage(player.Damage.curValue);
+        target.GetComponent<Unit>().TakeDamage(enemy.Damage.curValue);
         yield return new WaitForSeconds(time);
         canAttack = true;
     }
     public Coroutine c_Attack { get; private set; }
 
-
     public bool FindTarget()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 100f, LayerMask.GetMask("Enemy"));
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 100f, LayerMask.GetMask("Player"));
         if (colliders.Length > 0)
         {
             target = colliders[0].gameObject;
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
     public bool DistanceToAttack()
     {
-        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= player.Range.GetValue())
+        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= enemy.Range.GetValue())
             return true;
         else 
             return false;
@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
     {
         if (canAttack)
         {
-            c_Attack = StartCoroutine(Attack(1.0f / player.AttackSpeed.curValue));
+            c_Attack = StartCoroutine(Attack(1.0f / enemy.AttackSpeed.curValue));
         }
     }
 
-    public void ChangeState(IPlayerState newState)
+    public void ChangeState(IEnemyState newState)
     {
         currentState.OnExit(this);
         currentState = newState;
@@ -67,13 +67,13 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        player = GetComponent<Player>();
+        enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
-        currentState = new IPlayerIdleState();
+        currentState = new IEnemyIdleState();
         currentState.OnStart(this);
     }
 

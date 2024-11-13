@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacter", menuName = "CharacterType")]
 public class CharacterType : ScriptableObject
 {
+    public GameObject prefab;
     public float HP;
     public float MP;
     public float Damage;
