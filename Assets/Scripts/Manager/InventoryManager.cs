@@ -14,6 +14,6 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     private void Start()
     {
         inventory = new Inventory();
-        UIManager.Instance.inventoryUI.currentInventory = inventory; ;
+        UIManager.Instance.inventoryUI.currentInventory = inventory;
     }
 }
