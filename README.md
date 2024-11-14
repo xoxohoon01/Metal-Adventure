@@ -1,9 +1,9 @@
 # Metal Adventure
-[UI](UI)
+[UI](#UI)
 
-[AI](AI)
+[AI](#AI)
 
-[Scriptable Object](Scriptable-Object)
+[Scriptable Object](#Scriptable-Object)
 
 ## UI
 게임 시작 시 좌측 상단에 현재 골드와 상단에 현재 스테이지가 보이도록 배치했습니다.
