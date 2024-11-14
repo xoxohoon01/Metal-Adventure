@@ -8,18 +8,32 @@ public class ItemShop : MonoBehaviour
     
     public void BuyHorn()
     {
-        Buff newBuff = new Buff(0.05f, 300f);
-        currentCharacter.Damage.AddBuffMultiplication(newBuff, true);
+        if (InventoryManager.Instance.gold > 200)
+        {
+            Buff newBuff = new Buff(0.05f, 300f);
+            currentCharacter.Damage.AddBuffMultiplication(newBuff, true);
+        }
     }
 
     public void BuyNoiseCanceling()
     {
-        Buff newBuff = new Buff(0.05f, 300f);
-        currentCharacter.Armor.AddBuffMultiplication(newBuff, true);
+        if (InventoryManager.Instance.gold > 200)
+        {
+            Buff newBuff = new Buff(0.05f, 300f);
+            currentCharacter.Armor.AddBuffMultiplication(newBuff, true);
+        }
     }
 
     public void BuyAmericano()
     {
-        currentCharacter.HP.Add(currentCharacter.HP.GetValue() * 0.5f);
+        if (InventoryManager.Instance.gold > 100)
+        {
+            currentCharacter.HP.Add(currentCharacter.HP.GetValue() * 0.5f);
+        }
+    }
+
+    private void Awake()
+    {
+        UIManager.Instance.itemShop = this;
     }
 }

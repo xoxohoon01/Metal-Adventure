@@ -9,6 +9,11 @@ public class UIManager : MonoSingleton<UIManager>
 {
     public UICondition uiCondition;
 
+    public ItemShop itemShop;
+
+    public InventoryUI inventoryUI;
+    public EquipmentUI equipmentUI;
+
     public Action updateUI;
 
     public Player currentPlayer;
